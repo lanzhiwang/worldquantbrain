@@ -77,7 +77,7 @@ def get_datafields(
 # 定义搜索范围
 searchScope = {'region': 'USA', 'delay': '1', 'universe': 'TOP3000', 'instrumentType': 'EQUITY'}
 # 从数据集中获取数据字段
-fnd6 = get_datafields(s=sess, searchScope=searchScope, dataset_id='fundamental6')
+fnd6 = get_datafields(sess=sess, searchScope=searchScope, dataset_id='fundamental6')
 # 过滤类型为 "MATRIX" 的数据字段
 fnd6 = fnd6[fnd6['type'] == "MATRIX"]
 # 提取数据字段的ID并转换为列表
