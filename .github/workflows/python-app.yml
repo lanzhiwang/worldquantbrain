@@ -30,5 +30,8 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run Python Script
+        env:
+          username: ${{ secrets.username }}
+          password: ${{ secrets.password }}
         run: |
           python world2.py
