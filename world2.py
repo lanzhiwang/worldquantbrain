@@ -57,7 +57,7 @@ def get_datafields(sess, searchScope, dataset_id: str = '', search: str = ''):
         # url_template.format(x=0): https://api.worldquantbrain.com/data-fields?&instrumentType=EQUITY&region=USA&delay=1&universe=TOP3000&dataset.id=fundamental6&limit=50&offset=0
 
         data = sess.get(url_template.format(x=0)).json()
-        # print("data:", data)
+        # print("data1:", data)
         count = data['count']
     else:
         url_template = "https://api.worldquantbrain.com/data-fields?" + \
@@ -67,12 +67,13 @@ def get_datafields(sess, searchScope, dataset_id: str = '', search: str = ''):
                        "&offset={x}"
         count = 100
 
-    print("count:", count)
+    # print("count:", count)
 
     datafields_list = []
     for x in range(0, count, 50):
         datafields = sess.get(url_template.format(x=x))
-        print("datafields.json:", datafields.json())
+        # print("data2:", datafields.json())
+
         datafields_list.append(datafields.json()['results'])
 
     # print("datafields_list:", datafields_list)
@@ -91,67 +92,85 @@ fundamental6 = fundamental6[fundamental6['type'] == "MATRIX"]
 fundamental6.head()
 
 datafields_list_fundamental6 = fundamental6['id'].values
-print(datafields_list_fundamental6)
-print(len(datafields_list_fundamental6))
+# print("datafields_list_fundamental6:", datafields_list_fundamental6)
+# print("len(datafields_list_fundamental6):", len(datafields_list_fundamental6))
 
 
 # 将datafield替换到Alpha模板(框架)中group_rank({fundamental model data}/cap,subindustry)批量生成Alpha
-# alpha_list = []
+alpha_list = []
 
-# for index,datafield in enumerate(datafields_list_fundamental6,start=1):
-    
-#     alpha_expression = f'group_rank(({datafield})/cap, subindustry)'
-#     print(f"正在循环第 {index} 个元素,组装alpha表达式: {alpha_expression}")
-#     simulation_data = {
-#         "type": "REGULAR",
-#         "settings": {
-#             "instrumentType": "EQUITY",
-#             "region": "USA",
-#             "universe": "TOP3000",
-#             "delay": 1,
-#             "decay": 6,
-#             "neutralization": "SUBINDUSTRY",
-#             "truncation": 0.08,
-#             "pasteurization": "ON",
-#             "unitHandling": "VERIFY",
-#             "nanHandling": "ON",
-#             "language": "FASTEXPR",
-#             "visualization": False,
-#         },
-#         "regular": alpha_expression
-#     }
-#     alpha_list.append(simulation_data)
+for index, datafield in enumerate(datafields_list_fundamental6, start=1):
+    alpha_expression = f'group_rank(({datafield})/cap, subindustry)'
+    print(f"正在循环第 {index} 个元素,组装alpha表达式: {alpha_expression}")
+    simulation_data = {
+        "type": "REGULAR",
+        "settings": {
+            "instrumentType": "EQUITY",
+            "region": "USA",
+            "universe": "TOP3000",
+            "delay": 1,
+            "decay": 6,
+            "neutralization": "SUBINDUSTRY",
+            "truncation": 0.08,
+            "pasteurization": "ON",
+            "unitHandling": "VERIFY",
+            "nanHandling": "ON",
+            "language": "FASTEXPR",
+            "visualization": False,
+        },
+        "regular": alpha_expression
+    }
+    alpha_list.append(simulation_data)
 
-# print(f"there are {len(alpha_list)} Alphas to simulate")
-# print(alpha_list[0])
-
+print(f"there are {len(alpha_list)} Alphas to simulate")
+print(alpha_list[0])
+# there are 574 Alphas to simulate
+# {
+#     'type': 'REGULAR',
+#     'settings': {
+#         'instrumentType': 'EQUITY',
+#         'region': 'USA',
+#         'universe': 'TOP3000',
+#         'delay': 1,
+#         'decay': 6,
+#         'neutralization': 'SUBINDUSTRY',
+#         'truncation': 0.08,
+#         'pasteurization': 'ON',
+#         'unitHandling': 'VERIFY',
+#         'nanHandling': 'ON',
+#         'language': 'FASTEXPR',
+#         'visualization': False
+#     },
+#     'regular': 'group_rank((assets)/cap, subindustry)'
+# }
 
 # 将Alpha一个一个发送至服务器进行回测,并检查是否断线，如断线则重连，并继续发送
+for index, alpha in enumerate(alpha_list, start=1):
+    print("index:", index)
+    print("alpha:", alpha['regular'])
+    if index < 1:   #如果中断重跑，可以修改1从指定位置重跑，即可跳过已经模拟过的Alpha
+        continue
+    if index % 100 == 0:
+        sess = sign_in()
+        print(f"重新登录, 当前index为{index}")
 
+    sim_resp = sess.post(
+        'https://api.worldquantbrain.com/simulations',
+        json=alpha,
+    )
+    print("sim_resp.status_code:", sim_resp.status_code)
+    sleep(10)
 
-# for index,alpha in enumerate(alpha_list,start=1):
-#     if index < 1:   #如果中断重跑，可以修改1从指定位置重跑，即可跳过已经模拟过的Alpha
-#         continue
-#     if index % 100 == 0:
-#         sess = sign_in()
-#         print(f"重新登录，当前index为{index}")
-        
-#     sim_resp = sess.post(
-#         'https://api.worldquantbrain.com/simulations',
-#         json=alpha,
-#     )
-
-#     try:
-#         sim_progress_url = sim_resp.headers['Location']
-#         while True:
-#             sim_progress_resp = sess.get(sim_progress_url)
-#             retry_after_sec = float(sim_progress_resp.headers.get("Retry-After", 0))
-#             if retry_after_sec == 0:  # simulation done!模拟完成!
-#                 break
-#             sleep(retry_after_sec)
-#         alpha_id = sim_progress_resp.json()["alpha"]  # the final simulation result.# 最终模拟结果
-#         print(f"{index}: {alpha_id}: {alpha['regular']}")
-#     except:
-#         print("no location, sleep for 10 seconds and try next alpha.“没有位置，睡10秒然后尝试下一个字母。”")
-#         sleep(10)
-
+    # try:
+    #     sim_progress_url = sim_resp.headers['Location']
+    #     while True:
+    #         sim_progress_resp = sess.get(sim_progress_url)
+    #         retry_after_sec = float(sim_progress_resp.headers.get("Retry-After", 0))
+    #         if retry_after_sec == 0:  # simulation done!模拟完成!
+    #             break
+    #         sleep(retry_after_sec)
+    #     alpha_id = sim_progress_resp.json()["alpha"]  # the final simulation result.# 最终模拟结果
+    #     print(f"{index}: {alpha_id}: {alpha['regular']}")
+    # except:
+    #     print("no location, sleep for 10 seconds and try next alpha.“没有位置，睡10秒然后尝试下一个字母。”")
+    #     sleep(10)
