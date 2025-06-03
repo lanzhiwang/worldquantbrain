@@ -61,7 +61,7 @@ def get_datafields(sess, searchScope, dataset_id: str = '', search: str = ''):
 
     datafields_list = []
     for x in range(0, count, 50):
-        datafields = s.get(url_template.format(x=x))
+        datafields = sess.get(url_template.format(x=x))
         datafields_list.append(datafields.json()['results'])
 
     datafields_list_flat = [item for sublist in datafields_list for item in sublist]

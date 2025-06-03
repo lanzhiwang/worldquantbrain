@@ -38,7 +38,7 @@ sess = sign_in()
 # 获取数据集ID为fundamental6（Company Fundamental Data for Equity）下的所有数据字段
 ### Get Data_fields like Data Explorer 获取所有满足条件的数据字段及其ID
 def get_datafields(
-        s,
+        sess,
         searchScope,
         dataset_id: str = '',
         search: str = ''
@@ -54,7 +54,7 @@ def get_datafields(
                        f"&instrumentType={instrument_type}" + \
                        f"&region={region}&delay={str(delay)}&universe={universe}&dataset.id={dataset_id}&limit=50" + \
                        "&offset={x}"
-        count = s.get(url_template.format(x=0)).json()['count']
+        count = sess.get(url_template.format(x=0)).json()['count']
     else:
         url_template = "https://api.worldquantbrain.com/data-fields?" + \
                        f"&instrumentType={instrument_type}" + \
@@ -65,7 +65,7 @@ def get_datafields(
 
     datafields_list = []
     for x in range(0, count, 50):
-        datafields = s.get(url_template.format(x=x))
+        datafields = sess.get(url_template.format(x=x))
         datafields_list.append(datafields.json()['results'])
 
     datafields_list_flat = [item for sublist in datafields_list for item in sublist]
