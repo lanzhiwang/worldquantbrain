@@ -39,7 +39,7 @@ sess = sign_in()
 ### Get Data_fields like Data Explorer 获取所有满足条件的数据字段及其ID
 def get_datafields(sess, searchScope, dataset_id: str = '', search: str = ''):
     import pandas as pd
-    print("searchScope:", searchScope)
+
     instrument_type = searchScope['instrumentType']
     region = searchScope['region']
     delay = searchScope['delay']
@@ -50,10 +50,14 @@ def get_datafields(sess, searchScope, dataset_id: str = '', search: str = ''):
                        f"&instrumentType={instrument_type}" + \
                        f"&region={region}&delay={str(delay)}&universe={universe}&dataset.id={dataset_id}&limit=50" + \
                        "&offset={x}"
-        print("url_template:", url_template)
-        print("url_template.format(x=0):", url_template.format(x=0))
+        # print("url_template:", url_template)
+        # url_template: https://api.worldquantbrain.com/data-fields?&instrumentType=EQUITY&region=USA&delay=1&universe=TOP3000&dataset.id=fundamental6&limit=50&offset={x}
+
+        # print("url_template.format(x=0):", url_template.format(x=0))
+        # url_template.format(x=0): https://api.worldquantbrain.com/data-fields?&instrumentType=EQUITY&region=USA&delay=1&universe=TOP3000&dataset.id=fundamental6&limit=50&offset=0
+
         data = sess.get(url_template.format(x=0)).json()
-        print("data:", data)
+        # print("data:", data)
         count = data['count']
     else:
         url_template = "https://api.worldquantbrain.com/data-fields?" + \
@@ -63,15 +67,17 @@ def get_datafields(sess, searchScope, dataset_id: str = '', search: str = ''):
                        "&offset={x}"
         count = 100
 
+    print("count:", count)
+
     datafields_list = []
     for x in range(0, count, 50):
         datafields = sess.get(url_template.format(x=x))
         print("datafields.json:", datafields.json())
         datafields_list.append(datafields.json()['results'])
 
-    print("datafields_list:", datafields_list)
+    # print("datafields_list:", datafields_list)
     datafields_list_flat = [item for sublist in datafields_list for item in sublist]
-    print("datafields_list_flat:", datafields_list_flat)
+    # print("datafields_list_flat:", datafields_list_flat)
 
     datafields_df = pd.DataFrame(datafields_list_flat)
     return datafields_df
@@ -90,34 +96,34 @@ print(len(datafields_list_fundamental6))
 
 
 # 将datafield替换到Alpha模板(框架)中group_rank({fundamental model data}/cap,subindustry)批量生成Alpha
-alpha_list = []
+# alpha_list = []
 
-for index,datafield in enumerate(datafields_list_fundamental6,start=1):
+# for index,datafield in enumerate(datafields_list_fundamental6,start=1):
     
-    alpha_expression = f'group_rank(({datafield})/cap, subindustry)'
-    print(f"正在循环第 {index} 个元素,组装alpha表达式: {alpha_expression}")
-    simulation_data = {
-        "type": "REGULAR",
-        "settings": {
-            "instrumentType": "EQUITY",
-            "region": "USA",
-            "universe": "TOP3000",
-            "delay": 1,
-            "decay": 6,
-            "neutralization": "SUBINDUSTRY",
-            "truncation": 0.08,
-            "pasteurization": "ON",
-            "unitHandling": "VERIFY",
-            "nanHandling": "ON",
-            "language": "FASTEXPR",
-            "visualization": False,
-        },
-        "regular": alpha_expression
-    }
-    alpha_list.append(simulation_data)
+#     alpha_expression = f'group_rank(({datafield})/cap, subindustry)'
+#     print(f"正在循环第 {index} 个元素,组装alpha表达式: {alpha_expression}")
+#     simulation_data = {
+#         "type": "REGULAR",
+#         "settings": {
+#             "instrumentType": "EQUITY",
+#             "region": "USA",
+#             "universe": "TOP3000",
+#             "delay": 1,
+#             "decay": 6,
+#             "neutralization": "SUBINDUSTRY",
+#             "truncation": 0.08,
+#             "pasteurization": "ON",
+#             "unitHandling": "VERIFY",
+#             "nanHandling": "ON",
+#             "language": "FASTEXPR",
+#             "visualization": False,
+#         },
+#         "regular": alpha_expression
+#     }
+#     alpha_list.append(simulation_data)
 
-print(f"there are {len(alpha_list)} Alphas to simulate")
-print(alpha_list[0])
+# print(f"there are {len(alpha_list)} Alphas to simulate")
+# print(alpha_list[0])
 
 
 # 将Alpha一个一个发送至服务器进行回测,并检查是否断线，如断线则重连，并继续发送
