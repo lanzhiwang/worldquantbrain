@@ -92,8 +92,8 @@ fundamental6 = fundamental6[fundamental6['type'] == "MATRIX"]
 fundamental6.head()
 
 datafields_list_fundamental6 = fundamental6['id'].values
-# print("datafields_list_fundamental6:", datafields_list_fundamental6)
-# print("len(datafields_list_fundamental6):", len(datafields_list_fundamental6))
+print("datafields_list_fundamental6:", datafields_list_fundamental6)
+print("len(datafields_list_fundamental6):", len(datafields_list_fundamental6))
 
 
 # 将datafield替换到Alpha模板(框架)中group_rank({fundamental model data}/cap,subindustry)批量生成Alpha
