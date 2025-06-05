@@ -86,9 +86,8 @@ def get_datafields(sess, searchScope, dataset_id: str = "", search: str = ""):
     print("count:", count)
 
     datafields_list = []
-    for x in range(
-        0, count, 50
-    ):  # 0 50 100 150 200 250 300 350 400 450 500 550 600 650 700 750 800 850
+    # 0 50 100 150 200 250 300 350 400 450 500 550 600 650 700 750 800 850
+    for x in range(0, count, 50):
         datafields = sess.get(url_template.format(x=x))
         # print("data2:", datafields.json())
 
@@ -186,18 +185,18 @@ for index, alpha in enumerate(alpha_list, start=1):
     )
     print("sim_resp.status_code:", sim_resp.status_code)
 
-    try:
-        sim_progress_url = sim_resp.headers["Location"]
-        while True:
-            sim_progress_resp = sess.get(sim_progress_url)
-            retry_after_sec = float(sim_progress_resp.headers.get("Retry-After", 0))
-            if retry_after_sec == 0:  # simulation done!
-                break
-            sleep(retry_after_sec)
-        # the final simulation result.
-        alpha_id = sim_progress_resp.json()["alpha"]
-        print(f"{index}: {alpha_id}: {alpha['regular']}")
-        print(alpha_id)
-    except:
-        print("no location, sleep for 10 seconds and try next alpha.")
-        sleep(10)
+    # try:
+    #     sim_progress_url = sim_resp.headers["Location"]
+    #     while True:
+    #         sim_progress_resp = sess.get(sim_progress_url)
+    #         retry_after_sec = float(sim_progress_resp.headers.get("Retry-After", 0))
+    #         if retry_after_sec == 0:  # simulation done!
+    #             break
+    #         sleep(retry_after_sec)
+    #     # the final simulation result.
+    #     alpha_id = sim_progress_resp.json()["alpha"]
+    #     print(f"{index}: {alpha_id}: {alpha['regular']}")
+    #     print(alpha_id)
+    # except:
+    #     print("no location, sleep for 10 seconds and try next alpha.")
+    #     sleep(10)
