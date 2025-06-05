@@ -8,8 +8,8 @@ from requests.auth import HTTPBasicAuth
 
 # 从列表中提取用户名和密码
 # username, password = credentials
-username = os.getenv('username')
-password = os.getenv('password')
+username = os.getenv("username")
+password = os.getenv("password")
 print("username:", username)
 print("password:", password)
 
@@ -20,14 +20,16 @@ sess = requests.Session()
 sess.auth = HTTPBasicAuth(username, password)
 
 # 向API发送POST请求进行身份验证
-response = sess.post('https://api.worldquantbrain.com/authentication')
+response = sess.post("https://api.worldquantbrain.com/authentication")
 
 # 打印响应状态和内容以调试
 print("response.status_code:", response.status_code)
 print("response.json:", response.json())
 
 
-sim_resp = sess.get('https://api.worldquantbrain.com/users/self/alphas?limit=30&offset=3&status=UNSUBMITTED')
+sim_resp = sess.get(
+    "https://api.worldquantbrain.com/users/self/alphas?limit=30&offset=3&status=UNSUBMITTED"
+)
 
 print("sim_resp.status_code:", sim_resp.status_code)
 print("sim_resp.json:", sim_resp.json())
@@ -69,4 +71,3 @@ print("sim_resp.json:", sim_resp.json())
 #         {'id': 'bJxp99N', 'type': 'REGULAR', 'author': 'ZH14406', 'settings': {'instrumentType': 'EQUITY', 'region': 'USA', 'universe': 'TOP3000', 'delay': 1, 'decay': 6, 'neutralization': 'SUBINDUSTRY', 'truncation': 0.08, 'pasteurization': 'ON', 'unitHandling': 'VERIFY', 'nanHandling': 'ON', 'maxTrade': 'OFF', 'language': 'FASTEXPR', 'visualization': False}, 'regular': {'code': 'group_rank((fnd6_newa2v1300_tstkn)/cap, subindustry)', 'description': None, 'operatorCount': 2}, 'dateCreated': '2025-06-03T17:00:03-04:00', 'dateSubmitted': None, 'dateModified': '2025-06-03T17:00:03-04:00', 'name': None, 'favorite': False, 'hidden': False, 'color': None, 'category': None, 'tags': [], 'classifications': [], 'grade': 'INFERIOR', 'stage': 'IS', 'status': 'UNSUBMITTED', 'is': {'pnl': 3072925, 'bookSize': 20000000, 'longCount': 1174, 'shortCount': 1868, 'turnover': 0.0176, 'returns': 0.0621, 'drawdown': 0.0658, 'margin': 0.007038, 'sharpe': 1.23, 'fitness': 0.87, 'startDate': '2018-01-20', 'checks': [{'name': 'LOW_SHARPE', 'result': 'FAIL', 'limit': 1.25, 'value': 1.23}, {'name': 'LOW_FITNESS', 'result': 'FAIL', 'limit': 1.0, 'value': 0.87}, {'name': 'LOW_TURNOVER', 'result': 'PASS', 'limit': 0.01, 'value': 0.0176}, {'name': 'HIGH_TURNOVER', 'result': 'PASS', 'limit': 0.7, 'value': 0.0176}, {'name': 'CONCENTRATED_WEIGHT', 'result': 'PASS'}, {'name': 'LOW_SUB_UNIVERSE_SHARPE', 'result': 'PASS', 'limit': 0.53, 'value': 0.65}, {'name': 'SELF_CORRELATION', 'result': 'PENDING'}, {'name': 'MATCHES_COMPETITION', 'result': 'PASS', 'competitions': [{'id': 'challenge', 'name': 'Challenge'}]}]}, 'os': None, 'train': None, 'test': None, 'prod': None, 'competitions': None, 'themes': None, 'pyramids': None, 'pyramidThemes': None, 'team': None}
 #     ]
 # }
-

@@ -1,18 +1,16 @@
 import os
 from time import sleep
 import requests
-# import json
-# from os.path import expanduser
 from requests.auth import HTTPBasicAuth
 
-# # 加载凭据文件
+# 加载凭据文件
 # with open(expanduser('brain_credentials.txt')) as f:
 #     credentials = json.load(f)
 
 # 从列表中提取用户名和密码
 # username, password = credentials
-username = os.getenv('username')
-password = os.getenv('password')
+username = os.getenv("username")
+password = os.getenv("password")
 print("username:", username)
 print("password:", password)
 
@@ -22,35 +20,35 @@ sess = requests.Session()
 # 设置基本身份验证
 sess.auth = HTTPBasicAuth(username, password)
 
-# 向API发送POST请求进行身份验证
-response = sess.post('https://api.worldquantbrain.com/authentication')
+# 向 API 发送 POST 请求进行身份验证
+response = sess.post("https://api.worldquantbrain.com/authentication")
 
 # 打印响应状态和内容以调试
 print("response.status_code:", response.status_code)
 print("response.json:", response.json())
 
 simulation_data = {
-    'type': 'REGULAR',
-    'settings': {
-        'instrumentType': 'EQUITY',
-        'region': 'USA',
-        'universe': 'TOP3000',
-        'delay': 1,
-        'decay': 6,
-        'neutralization': 'SUBINDUSTRY',
-        'truncation': 0.08,
-        'pasteurization': 'ON',
-        'unitHandling': 'VERIFY',
-        'nanHandling': 'ON',
-        'language': 'FASTEXPR',
-        'visualization': False,
+    "type": "REGULAR",
+    "settings": {
+        "instrumentType": "EQUITY",
+        "region": "USA",
+        "universe": "TOP3000",
+        "delay": 1,
+        "decay": 6,
+        "neutralization": "SUBINDUSTRY",
+        "truncation": 0.08,
+        "pasteurization": "ON",
+        "unitHandling": "VERIFY",
+        "nanHandling": "ON",
+        "language": "FASTEXPR",
+        "visualization": False,
     },
-    'regular': 'liabilities/assets'  ## 写表达式
+    "regular": "liabilities/assets",  # alphas 表达式
 }
 print("simulation_data:", simulation_data)
 
 sim_resp = sess.post(
-    'https://api.worldquantbrain.com/simulations',
+    "https://api.worldquantbrain.com/simulations",
     json=simulation_data,
 )
 print("sim_resp.headers:", sim_resp.headers)
@@ -71,7 +69,7 @@ print("sim_resp.headers:", sim_resp.headers)
 #     'Access-Control-Expose-Headers': 'Location,Retry-After',
 #     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains'
 # }
-sim_progress_url = sim_resp.headers['Location']
+sim_progress_url = sim_resp.headers["Location"]
 
 while True:
     sim_progress_resp = sess.get(sim_progress_url)
@@ -80,7 +78,7 @@ while True:
     retry_after_sec = float(sim_progress_resp.headers.get("Retry-After", 0))
     print("retry_after_sec:", retry_after_sec)
 
-    if retry_after_sec == 0:  # simulation done!模拟完成!
+    if retry_after_sec == 0:  # simulation done!
         break
     sleep(retry_after_sec)
 
@@ -108,6 +106,7 @@ print("sim_progress_resp.json:", sim_progress_resp.json())
 #     'alpha': 'EN6YodG'
 # }
 
-alpha_id = sim_progress_resp.json()["alpha"]  # the final simulation result 模拟最终模拟结果
+# the final simulation result
+alpha_id = sim_progress_resp.json()["alpha"]
 
 print("alpha_id:", alpha_id)

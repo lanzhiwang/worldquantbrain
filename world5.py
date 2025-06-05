@@ -1,6 +1,8 @@
 import os
+
 # from time import sleep
 import requests
+
 # import json
 # from os.path import expanduser
 from requests.auth import HTTPBasicAuth
@@ -11,8 +13,8 @@ from requests.auth import HTTPBasicAuth
 
 # 从列表中提取用户名和密码
 # username, password = credentials
-username = os.getenv('username')
-password = os.getenv('password')
+username = os.getenv("username")
+password = os.getenv("password")
 print("username:", username)
 print("password:", password)
 
@@ -23,14 +25,14 @@ sess = requests.Session()
 sess.auth = HTTPBasicAuth(username, password)
 
 # 向API发送POST请求进行身份验证
-response = sess.post('https://api.worldquantbrain.com/authentication')
+response = sess.post("https://api.worldquantbrain.com/authentication")
 
 # 打印响应状态和内容以调试
 print("response.status_code:", response.status_code)
 print("response.json:", response.json())
 
 
-sim_resp = sess.get('https://api.worldquantbrain.com/alphas/w3o2Z8l')
+sim_resp = sess.get("https://api.worldquantbrain.com/alphas/w3o2Z8l")
 
 print("sim_resp.status_code:", sim_resp.status_code)
 print("sim_resp.json:", sim_resp.json())
