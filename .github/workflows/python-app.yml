@@ -34,4 +34,4 @@ jobs:
           username: ${{ secrets.username }}
           password: ${{ secrets.password }}
         run: |
-          python -u ./world2/world2.py
+          python -u world3.py
