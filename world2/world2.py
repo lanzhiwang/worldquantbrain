@@ -147,10 +147,20 @@ for index, datafield in enumerate(datafields_list_fundamental6, start=1):
         },
         "regular": alpha_expression,
     }
-    alpha_list.append(simulation_data)
+    if index % 50 == 0:
+        sess = sign_in()
+        print(f"重新登录, 当前 index 为{index}")
 
-print(f"there are {len(alpha_list)} Alphas to simulate")
-print(alpha_list[0])
+    sim_resp = sess.post(
+        "https://api.worldquantbrain.com/simulations",
+        json=simulation_data,
+    )
+    print("sim_resp.status_code:", sim_resp.status_code)
+    sleep(3)
+    # alpha_list.append(simulation_data)
+
+# print(f"there are {len(alpha_list)} Alphas to simulate")
+# print(alpha_list[0])
 # there are 574 Alphas to simulate
 # {
 #     'type': 'REGULAR',
@@ -172,31 +182,31 @@ print(alpha_list[0])
 # }
 
 # 将 Alpha 一个一个发送至服务器进行回测, 并检查是否断线, 如断线则重连, 并继续发送
-for index, alpha in enumerate(alpha_list, start=1):
-    print("index:", index)
-    print("alpha:", alpha["regular"])
-    if index % 50 == 0:
-        sess = sign_in()
-        print(f"重新登录, 当前 index 为{index}")
+# for index, alpha in enumerate(alpha_list, start=1):
+#     print("index:", index)
+#     print("alpha:", alpha["regular"])
+#     if index % 50 == 0:
+#         sess = sign_in()
+#         print(f"重新登录, 当前 index 为{index}")
 
-    sim_resp = sess.post(
-        "https://api.worldquantbrain.com/simulations",
-        json=alpha,
-    )
-    print("sim_resp.status_code:", sim_resp.status_code)
+#     sim_resp = sess.post(
+#         "https://api.worldquantbrain.com/simulations",
+#         json=alpha,
+#     )
+#     print("sim_resp.status_code:", sim_resp.status_code)
 
-    # try:
-    #     sim_progress_url = sim_resp.headers["Location"]
-    #     while True:
-    #         sim_progress_resp = sess.get(sim_progress_url)
-    #         retry_after_sec = float(sim_progress_resp.headers.get("Retry-After", 0))
-    #         if retry_after_sec == 0:  # simulation done!
-    #             break
-    #         sleep(retry_after_sec)
-    #     # the final simulation result.
-    #     alpha_id = sim_progress_resp.json()["alpha"]
-    #     print(f"{index}: {alpha_id}: {alpha['regular']}")
-    #     print(alpha_id)
-    # except:
-    #     print("no location, sleep for 10 seconds and try next alpha.")
-    #     sleep(10)
+#     try:
+#         sim_progress_url = sim_resp.headers["Location"]
+#         while True:
+#             sim_progress_resp = sess.get(sim_progress_url)
+#             retry_after_sec = float(sim_progress_resp.headers.get("Retry-After", 0))
+#             if retry_after_sec == 0:  # simulation done!
+#                 break
+#             sleep(retry_after_sec)
+#         # the final simulation result.
+#         alpha_id = sim_progress_resp.json()["alpha"]
+#         print(f"{index}: {alpha_id}: {alpha['regular']}")
+#         print(alpha_id)
+#     except:
+#         print("no location, sleep for 10 seconds and try next alpha.")
+#         sleep(10)
