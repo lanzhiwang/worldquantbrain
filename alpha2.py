@@ -26,10 +26,11 @@ response = sess.post("https://api.worldquantbrain.com/authentication")
 print("response.status_code:", response.status_code)
 print("response.json:", response.json())
 
-
-sim_resp = sess.get(
-    "https://api.worldquantbrain.com/users/self/alphas?limit=100&offset=500&status=UNSUBMITTED"
-)
+limit = 100
+offset = 500
+url = f"https://api.worldquantbrain.com/users/self/alphas?limit={limit}&offset={offset}&status=UNSUBMITTED"
+print("url:", url)
+sim_resp = sess.get(url)
 
 print("sim_resp.status_code:", sim_resp.status_code)
 # print("sim_resp.json:", sim_resp.json())
@@ -47,7 +48,7 @@ print("sim_resp.status_code:", sim_resp.status_code)
 # }
 
 alphas = sim_resp.json()["results"]
-print(len(alphas))
+print("len(alphas):", len(alphas))
 for alpha in alphas:
     success = 1
     for check in alpha["is"]["checks"]:

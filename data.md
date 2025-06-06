@@ -15,4 +15,3 @@
 13. [Social Media Data for Equity](https://platform.worldquantbrain.com/data/data-sets/socialmedia8)
 14. [Universe Dataset](https://platform.worldquantbrain.com/data/data-sets/univ1)
 
-
