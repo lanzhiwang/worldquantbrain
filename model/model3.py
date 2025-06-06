@@ -106,41 +106,59 @@ days = [10, 20]
 group = ["industry"]
 # 初始化alpha表达式列表
 # alpha_expressions = []
+
+count = 0
 for gco in group_compare_op:
     for tco in ts_compare_op:
         for cso in cross_sectional_op:
             for cf in company_fundamentals:
                 for d in days:
                     for grp in group:
-                        alpha_expression = f"{gco}({tco}({cso}({cf})/{cso}(enterprise_value), {d}), {grp})"
-                        print("alpha_expression:", alpha_expression)
-                        # alpha_expressions.append(
-                        #     f"{gco}({tco}({cso}({cf})/{cso}(enterprise_value), {d}), {grp})"
-                        # )
-                        simulation_data = {
-                            "type": "REGULAR",
-                            "settings": {
-                                "instrumentType": "EQUITY",
-                                "region": "USA",
-                                "universe": "TOP3000",
-                                "delay": 1,
-                                "decay": 6,
-                                "neutralization": "SUBINDUSTRY",
-                                "truncation": 0.01,
-                                "pasteurization": "ON",
-                                "unitHandling": "VERIFY",
-                                "nanHandling": "ON",
-                                "language": "FASTEXPR",
-                                "visualization": False,
-                            },
-                            "regular": alpha_expression,
-                        }
-                        sim_resp = sess.post(
-                            "https://api.worldquantbrain.com/simulations",
-                            json=simulation_data,
-                        )
-                        print("sim_resp.status_code:", sim_resp.status_code)
-                        sleep(3)
+                        count += 1
+print("count:", count)
+
+
+
+for index in range(count):
+    for gco in group_compare_op:
+        for tco in ts_compare_op:
+            for cso in cross_sectional_op:
+                for cf in company_fundamentals:
+                    for d in days:
+                        for grp in group:
+                            if index % 50 == 0:
+                                sess = sign_in()
+                                print(f"重新登录, 当前 index 为{index}")
+
+                            alpha_expression = f"{gco}({tco}({cso}({cf})/{cso}(enterprise_value), {d}), {grp})"
+                            print("alpha_expression:", alpha_expression)
+                            # alpha_expressions.append(
+                            #     f"{gco}({tco}({cso}({cf})/{cso}(enterprise_value), {d}), {grp})"
+                            # )
+                            simulation_data = {
+                                "type": "REGULAR",
+                                "settings": {
+                                    "instrumentType": "EQUITY",
+                                    "region": "USA",
+                                    "universe": "TOP3000",
+                                    "delay": 1,
+                                    "decay": 6,
+                                    "neutralization": "SUBINDUSTRY",
+                                    "truncation": 0.01,
+                                    "pasteurization": "ON",
+                                    "unitHandling": "VERIFY",
+                                    "nanHandling": "ON",
+                                    "language": "FASTEXPR",
+                                    "visualization": False,
+                                },
+                                "regular": alpha_expression,
+                            }
+                            sim_resp = sess.post(
+                                "https://api.worldquantbrain.com/simulations",
+                                json=simulation_data,
+                            )
+                            print("sim_resp.status_code:", sim_resp.status_code)
+                            sleep(3)
 
 # 输出生成的alpha表达式总数 # 打印或返回结果字符串列表
 # print(f"there are total {len(alpha_expressions)} alpha expressions")
