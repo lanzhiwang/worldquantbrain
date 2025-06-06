@@ -156,7 +156,7 @@ for index, datafield in enumerate(datafields_list_fundamental6, start=1):
         json=simulation_data,
     )
     print("sim_resp.status_code:", sim_resp.status_code)
-    sleep(3)
+    sleep(15)
     # alpha_list.append(simulation_data)
 
 # print(f"there are {len(alpha_list)} Alphas to simulate")
