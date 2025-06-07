@@ -27,7 +27,7 @@ print("response.status_code:", response.status_code)
 print("response.json:", response.json())
 
 limit = 100
-offset = 500
+offset = 1000
 url = f"https://api.worldquantbrain.com/users/self/alphas?limit={limit}&offset={offset}&status=UNSUBMITTED"
 print("url:", url)
 sim_resp = sess.get(url)

@@ -48,7 +48,7 @@ def get_datafields(sess, searchScope, dataset_id: str = "", search: str = ""):
         url_template = (
             "https://api.worldquantbrain.com/data-fields?"
             + f"&instrumentType={instrument_type}"
-            + f"&region={region}&delay={str(delay)}&universe={universe}&dataset.id={dataset_id}&limit=50"
+            + f"&region={region}&delay={str(delay)}&universe={universe}&dataset.id={dataset_id}&limit=5"
             + "&offset={x}"
         )
         # count = sess.get(url_template.format(x=0)).json()["count"]
@@ -56,14 +56,14 @@ def get_datafields(sess, searchScope, dataset_id: str = "", search: str = ""):
         url_template = (
             "https://api.worldquantbrain.com/data-fields?"
             + f"&instrumentType={instrument_type}"
-            + f"&region={region}&delay={str(delay)}&universe={universe}&limit=50"
+            + f"&region={region}&delay={str(delay)}&universe={universe}&limit=5"
             + f"&search={search}"
             + "&offset={x}"
         )
         # count = 100
 
     datafields_list = []
-    for x in range(0, 50, 50):
+    for x in range(0, 25, 5):
         datafields = sess.get(url_template.format(x=x))
         datafields_list.append(datafields.json()["results"])
 
