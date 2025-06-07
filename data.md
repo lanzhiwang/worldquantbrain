@@ -11,9 +11,9 @@ model2
 model3
 
 3. [Company Fundamental Data for Equity](https://platform.worldquantbrain.com/data/data-sets/fundamental6)
-model1 0-100
-model2 0-100
-model3 0-100
+model1 0-800
+model2 0-50
+model3 0-400
 
 4. [Fundamental Scores](https://platform.worldquantbrain.com/data/data-sets/model16)
 model1
