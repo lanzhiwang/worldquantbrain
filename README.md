@@ -31,4 +31,9 @@ pip install requests selenium webdriver-manager
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo apt install ./google-chrome-stable_current_amd64.deb
 
+>>> from webdriver_manager.chrome import ChromeDriverManager
+>>> ChromeDriverManager().install()
+'/root/.wdm/drivers/chromedriver/linux64/114.0.5735.90/chromedriver'
+>>>
+
 ```
