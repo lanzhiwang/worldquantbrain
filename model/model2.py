@@ -148,7 +148,8 @@ for gco in group_compare_op:
                         json=simulation_data,
                     )
                     print("sim_resp.status_code:", sim_resp.status_code)
-                    sleep(15)
+                    sleep(8)
+print("index:", index)
 
 # print(f"there are total {len(alpha_expressions)} alpha expressions")
 # print(alpha_expressions[:5])
