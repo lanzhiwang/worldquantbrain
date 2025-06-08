@@ -46,9 +46,9 @@ model2
 model3
 
 10. [Price Volume Data for Equity](https://platform.worldquantbrain.com/data/data-sets/pv1)
-model1
-model2
-model3
+model1 0-800
+model2 0-25
+model3 0-400
 
 11. [Relationship Data for Equity](https://platform.worldquantbrain.com/data/data-sets/pv13)
 model1
