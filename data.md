@@ -6,9 +6,9 @@ model2
 model3
 
 2. [Report Footnotes](https://platform.worldquantbrain.com/data/data-sets/fundamental2)
-model1 0-800
-model2 0-25
-model3 0-400
+model1 0-1600
+model2 0-50
+model3 0-800
 
 3. [Company Fundamental Data for Equity](https://platform.worldquantbrain.com/data/data-sets/fundamental6)
 model1 0-2400
