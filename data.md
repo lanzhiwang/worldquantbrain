@@ -6,7 +6,7 @@ model1: 0-400
 model2: 0-25
 model3: 0-400
 
-2. [Report Footnotes](https://platform.worldquantbrain.com/data/data-sets/fundamental2)
+1. [Report Footnotes](https://platform.worldquantbrain.com/data/data-sets/fundamental2)
 Fields: 318
 model1 0-800
 model2 0-25
@@ -29,9 +29,10 @@ model2
 model3
 
 1. [US News Data](https://platform.worldquantbrain.com/data/data-sets/news12)
-model1
-model2
-model3
+Field: 322
+model1 0-400
+model2 0-25
+model3 0-400
 
 1. [Ravenpack News Data](https://platform.worldquantbrain.com/data/data-sets/news18)
 model1
