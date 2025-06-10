@@ -81,7 +81,7 @@ searchScope = {
     "universe": "TOP3000",
 }
 # 从数据集中获取数据字段
-fnd6 = get_datafields(sess=sess, searchScope=searchScope, dataset_id="news12")
+fnd6 = get_datafields(sess=sess, searchScope=searchScope, dataset_id="option8")
 # 过滤类型为 "MATRIX" 的数据字段
 fnd6 = fnd6[fnd6["type"] == "MATRIX"]
 # 提取数据字段的ID并转换为列表

@@ -109,7 +109,7 @@ searchScope = {
     "universe": "TOP3000",
 }
 # 获取数据集 ID 为 fundamental6(Company Fundamental Data for Equity) 下的所有数据字段
-fundamental6 = get_datafields(sess=sess, searchScope=searchScope, dataset_id="news12")
+fundamental6 = get_datafields(sess=sess, searchScope=searchScope, dataset_id="option8")
 
 # 筛选(这里是 type 的 MATRIX)
 fundamental6 = fundamental6[fundamental6["type"] == "MATRIX"]
