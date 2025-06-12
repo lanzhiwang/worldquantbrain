@@ -1,43 +1,8 @@
 {
-    // Enable feedback mechanisms such as the issue reporter, surveys, and feedback options in features like Copilot Chat.
-    "telemetry.feedback.enabled": true,
-    // Controls whether `editor.tabSize#` and `#editor.insertSpaces` will be automatically detected when a file is opened based on the file contents.
-    "editor.detectIndentation": false,
-    // Controls the font family.
-    "editor.fontFamily": "Hack",
-    // Controls the font size in pixels.
-    "editor.fontSize": 18,
-    // Controls whether the editor should automatically format the pasted content. A formatter must be available and the formatter should be able to format a range in a document.
-    "editor.formatOnPaste": true,
-    // Format a file on save. A formatter must be available and the editor must not be shutting down. When `files.autoSave` is set to `afterDelay`, the file will only be formatted when saved explicitly.
-    "editor.formatOnSave": true,
-    // Controls whether to show syntax highlighting for inline suggestions in the editor.
-    "editor.inlineSuggest.syntaxHighlightingEnabled": false,
-    // Insert spaces when pressing `Tab`. This setting is overridden based on the file contents when `editor.detectIndentation` is on.
-    "editor.insertSpaces": true,
-    // Controls the delay in milliseconds after which occurrences are highlighted.
-    "editor.occurrencesHighlightDelay": 250,
-    // Controls how the editor should render whitespace characters.
-    //  - none
-    //  - boundary: Render whitespace characters except for single spaces between words.
-    //  - selection: Render whitespace characters only on selected text.
-    //  - trailing: Render only trailing whitespace characters.
-    //  - all
-    "editor.renderWhitespace": "all",
-    // The number of spaces a tab is equal to. This setting is overridden based on the file contents when `editor.detectIndentation` is on.
-    "editor.tabSize": 4,
-    // Specifies the color theme used in the workbench.
-    "workbench.colorTheme": "Visual Studio Dark",
-    // Controls whether opened editors show as preview editors. Preview editors do not stay open, are reused until explicitly set to be kept open (via double-click or editing), and show file names in italics.
-    "workbench.editor.enablePreview": false,
-    // Specifies the preferred color theme for dark OS appearance when `window.autoDetectColorScheme` is enabled.
-    "workbench.preferredDarkColorTheme": "Visual Studio Dark",
-    // Specifies the preferred color theme used in high contrast dark mode when `window.autoDetectHighContrast` is enabled.
-    "workbench.preferredHighContrastColorTheme": "Visual Studio Dark",
-    // Specifies the preferred color theme used in high contrast light mode when `window.autoDetectHighContrast` is enabled.
-    "workbench.preferredHighContrastLightColorTheme": "Visual Studio Dark",
-    // Specifies the preferred color theme for light OS appearance when `window.autoDetectColorScheme` is enabled.
-    "workbench.preferredLightColorTheme": "Visual Studio Dark",
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // 参考:
+    // https://code.visualstudio.com/docs/getstarted/tips-and-tricks#_tune-your-settings
+    /////////////////////////////////////////////////////////////////////////////////////////////
     // Controls which editor is shown at startup, if none are restored from the previous session.
     //  - none: Start without an editor.
     //  - welcomePage: Open the Welcome page, with content to aid in getting started with VS Code and extensions.
@@ -46,12 +11,82 @@
     //  - welcomePageInEmptyWorkbench: Open the Welcome page when opening an empty workbench.
     //  - terminal: Open a new terminal in the editor area.
     "workbench.startupEditor": "none",
+    // Controls the font size in pixels.
+    "editor.fontSize": 18,
+    // Terminal panel
+    "terminal.integrated.fontSize": 14,
+    // Output panel
+    "[Log]": {
+        "editor.fontSize": 15
+    },
+    "window.zoomLevel": 0,
+    // Controls the font family.
+    "editor.fontFamily": "Hack",
+    "editor.fontLigatures": true,
     // Controls auto save of editors that have unsaved changes.
     //  - off: An editor with changes is never automatically saved.
     //  - afterDelay: An editor with changes is automatically saved after the configured `files.autoSaveDelay`.
     //  - onFocusChange: An editor with changes is automatically saved when the editor loses focus.
     //  - onWindowChange: An editor with changes is automatically saved when the window loses focus.
     "files.autoSave": "afterDelay",
+    // Format a file on save. A formatter must be available and the editor must not be shutting down. When `files.autoSave` is set to `afterDelay`, the file will only be formatted when saved explicitly.
+    "editor.formatOnSave": true,
+    // Controls whether the editor should automatically format the pasted content. A formatter must be available and the formatter should be able to format a range in a document.
+    "editor.formatOnPaste": true,
+    // The number of spaces a tab is equal to. This setting is overridden based on the file contents when `editor.detectIndentation` is on.
+    "editor.tabSize": 4,
+    // Insert spaces when pressing `Tab`. This setting is overridden based on the file contents when `editor.detectIndentation` is on.
+    "editor.insertSpaces": true,
+    // Controls how the editor should render whitespace characters.
+    //  - none
+    //  - boundary: Render whitespace characters except for single spaces between words.
+    //  - selection: Render whitespace characters only on selected text.
+    //  - trailing: Render only trailing whitespace characters.
+    //  - all
+    "editor.renderWhitespace": "all",
     // Controls whether the Explorer should ask for confirmation when deleting a file via the trash.
     "explorer.confirmDelete": false,
+    // Configure [glob patterns](https://aka.ms/vscode-glob-patterns) for excluding files and folders. For example, the File Explorer decides which files and folders to show or hide based on this setting. Refer to the `search.exclude#` setting to define search-specific excludes. Refer to the `#explorer.excludeGitIgnore` setting for ignoring files based on your `.gitignore`.
+    // Specifies the color theme used in the workbench.
+    "workbench.colorTheme": "Visual Studio Dark",
+    // Specifies the preferred color theme for dark OS appearance when `window.autoDetectColorScheme` is enabled.
+    "workbench.preferredDarkColorTheme": "Visual Studio Dark",
+    // Specifies the preferred color theme used in high contrast dark mode when `window.autoDetectHighContrast` is enabled.
+    "workbench.preferredHighContrastColorTheme": "Visual Studio Dark",
+    // Specifies the preferred color theme used in high contrast light mode when `window.autoDetectHighContrast` is enabled.
+    "workbench.preferredHighContrastLightColorTheme": "Visual Studio Dark",
+    // Specifies the preferred color theme for light OS appearance when `window.autoDetectColorScheme` is enabled.
+    "workbench.preferredLightColorTheme": "Visual Studio Dark",
+    // Enable feedback mechanisms such as the issue reporter, surveys, and feedback options in features like Copilot Chat.
+    "telemetry.feedback.enabled": false,
+    // Controls whether `editor.tabSize#` and `#editor.insertSpaces` will be automatically detected when a file is opened based on the file contents.
+    "editor.detectIndentation": false,
+    // Controls whether to show syntax highlighting for inline suggestions in the editor.
+    "editor.inlineSuggest.syntaxHighlightingEnabled": false,
+    // Controls the delay in milliseconds after which occurrences are highlighted.
+    "editor.occurrencesHighlightDelay": 250,
+    // Controls whether opened editors show as preview editors. Preview editors do not stay open, are reused until explicitly set to be kept open (via double-click or editing), and show file names in italics.
+    "workbench.editor.enablePreview": false,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true
+    },
+    // Configure glob patterns for excluding files and folders in fulltext searches and quick open. Inherits all glob patterns from the `files.exclude` setting.
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*.code-search": true
+    },
+    "json.schemas": [
+        {
+            "fileMatch": [
+                "bower.json"
+            ],
+            "url": "https://json.schemastore.org/bower"
+        }
+    ],
+    "workbench.tree.renderIndentGuides": "always",
 }
