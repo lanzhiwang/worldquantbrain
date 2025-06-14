@@ -61,8 +61,8 @@ def get_alphas(sess, limit, offset):
 if __name__ == "__main__":
     df = pd.read_csv("file1.csv")
     limit = 100
-    offset = 0
-    count = 7000
+    offset = 7000
+    count = 11000
     while True:
         print("offset = ", offset)
         if offset > count:
@@ -123,7 +123,7 @@ if __name__ == "__main__":
                                     ),
                                     ignore_index=False,
                                 )
-                                df.to_csv("file1.csv", index=False)
+                            df.to_csv("file1.csv", index=False)
                             sleep(15)
                             flag = 0
                         except JSONDecodeError:
