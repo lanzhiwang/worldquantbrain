@@ -56,7 +56,7 @@ def get_datafields(sess, searchScope, dataset_id: str = "", search: str = ""):
 
     datafields_list = []
     # 0 50 100 150 200 250 300 350 400 450 500 550 600 650 700 750 800 850
-    for x in range(0, 100, 50):
+    for x in range(0, 50, 50):
         datafields = sess.get(url_template.format(x=x))
         # print("data2:", datafields.json())
 
@@ -78,7 +78,7 @@ searchScope = {
     "universe": "TOP3000",
 }
 # 获取数据集 ID 为 fundamental6(Company Fundamental Data for Equity) 下的所有数据字段
-fundamental6 = get_datafields(sess=sess, searchScope=searchScope, dataset_id="analyst4")
+fundamental6 = get_datafields(sess=sess, searchScope=searchScope, dataset_id="fundamental2")
 
 # 筛选(这里是 type 的 MATRIX)
 fundamental6 = fundamental6[fundamental6["type"] == "MATRIX"]
