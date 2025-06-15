@@ -40,7 +40,7 @@ Field: 64
 model1 0-70
 model2 0-75
 model3 0-70
-model4 0-200
+model4 0-65
 
 7. [Relationship Data for Equity](https://platform.worldquantbrain.com/data/data-sets/pv13)
 Field: 168
