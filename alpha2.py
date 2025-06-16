@@ -61,8 +61,8 @@ def get_alphas(sess, limit, offset):
 if __name__ == "__main__":
     df = pd.read_csv("file1.csv")
     limit = 100
-    offset = 7000
-    count = 11000
+    offset = 0
+    count = 20000
     while True:
         print("offset = ", offset)
         if offset > count:
