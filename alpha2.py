@@ -62,7 +62,7 @@ if __name__ == "__main__":
     df = pd.read_csv("file1.csv")
     limit = 100
     offset = 0
-    count = 20000
+    count = 40000
     while True:
         print("offset = ", offset)
         if offset > count:
