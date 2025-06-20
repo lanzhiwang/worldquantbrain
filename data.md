@@ -10,28 +10,28 @@ model4 0-100
 2. [Company Fundamental Data for Equity](https://platform.worldquantbrain.com/data/data-sets/fundamental6)
 Fields: 886
 model1 0-2400
-model2 0-275
+model2 0-350
 model3 0-1200
-model4 0-400
+model4 0-550
 
 3. [Analyst Estimate Data for Equity](https://platform.worldquantbrain.com/data/data-sets/analyst4)
 Fields: 350
 model1 0-400
-model2 0-275
+model2 0-300
 model3 0-400
 model4 0-350
 
 4. [Report Footnotes](https://platform.worldquantbrain.com/data/data-sets/fundamental2)
 Fields: 318
 model1 0-800
-model2 0-275
+model2 0-300
 model3 0-400
 model4 0-350
 
 5. [US News Data](https://platform.worldquantbrain.com/data/data-sets/news12)
 Field: 322
 model1 0-400
-model2 0-275
+model2 0-300
 model3 0-400
 model4 0-350
 

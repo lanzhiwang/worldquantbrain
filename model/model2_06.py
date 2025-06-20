@@ -63,7 +63,7 @@ def get_datafields(sess, searchScope, dataset_id: str = "", search: str = ""):
         # count = 100
 
     datafields_list = []
-    for x in range(0, 25, 5):
+    for x in range(325, 350, 5):
         datafields = sess.get(url_template.format(x=x))
         datafields_list.append(datafields.json()["results"])
 
@@ -81,7 +81,7 @@ searchScope = {
     "universe": "TOP3000",
 }
 # 从数据集中获取数据字段
-fnd6 = get_datafields(sess=sess, searchScope=searchScope, dataset_id="model16")
+fnd6 = get_datafields(sess=sess, searchScope=searchScope, dataset_id="fundamental6")
 # 过滤类型为 "MATRIX" 的数据字段
 fnd6 = fnd6[fnd6["type"] == "MATRIX"]
 # 提取数据字段的 ID 并转换为列表
